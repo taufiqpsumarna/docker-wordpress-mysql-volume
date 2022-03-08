@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mariadb:
+    container_name: mariadb-server-dev
+    restart: always
+    image: mariadb:10.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root_dev' # TODO: Change this
+      MYSQL_USER: 'db_user_dev'
+      MYSQL_PASS: 'db_pass_dev'
+    volumes:
+      - ./.mysql:/var/lib/mysql
+  wordpress:
+    container_name: wordpress-dev
+    restart: always
+    image: wordpress:php7.4-fpm
+    ports:
+      - "8080:80"
+    links:
+      - mariadb #Connect To Mariadb Services
+    environment:
+      WORDPRESS_DB_HOST: mariadb-server-dev
+      WORDPRESS_DB_USER: db_user_dev
+      WORDPRESS_DB_PASSWORD: db_pass_dev
+      WORDPRESS_DB_NAME: db_wordpress

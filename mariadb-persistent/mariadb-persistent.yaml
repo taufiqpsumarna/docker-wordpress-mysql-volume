@@ -1,0 +1,14 @@
+version: '2'
+services:
+  mysql:
+    container_name: mariadb-dev
+    restart: always
+    image: mariadb:10.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root_dev' # TODO: Change this
+      MYSQL_USER: 'db_user_dev'
+      MYSQL_PASS: 'db_pass_dev'
+    volumes:
+      - mysql-dev-volume:/var/lib/mysql
+volumes:
+  mysql-dev-volume:
